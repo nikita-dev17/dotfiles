@@ -1,0 +1,133 @@
+@import "/home/nikita/.config/theme-manager/color.css";
+
+/* ======================= Общие настройки ======================= */
+* {
+    font-family: "JetBrains Mono", "Symbols Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 16px;
+}
+
+window#waybar {
+    background-color: @window_bg;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+/* ======================= Блоки модулей ======================= */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: @module_bg;
+    padding: 0px 8px;
+    min-height: 34px;
+    border-radius: 14px;
+    border: 1px solid @module_border;
+}
+
+.modules-left {
+    border-radius: 0 10px 10px 0;
+}
+
+.modules-right {
+    border-radius: 10px 0 0 10px;
+}
+
+/* ======================= Модули ======================= */
+#workspaces,
+#window,
+#tray,
+#pulseaudio,
+#cpu,
+#battery,
+#network,
+#temperature,
+#clock,
+#language,
+#custom-disk,
+#custom-music,
+#bluetooth{
+    margin: 0;
+    padding: 0 14px;
+    color: @module_fg;
+}
+
+#bluetooth {
+    font-size: 18px;
+}
+
+#custom-weather {
+    padding: 0 10px;
+    color: #ffffff;
+    background: transparent;
+}
+
+#custom-swaync {
+    color: @muted_fg;
+}
+
+/* ======================= Workspaces ======================= */
+#workspaces button {
+    padding: 0 10px;
+    background: transparent;
+    color: @wspace_btn_fg;
+    border-radius: 10px;
+}
+
+#workspaces button.focused {
+    background-color: @wspace_btn_f_bg;
+    color: @wspace_btn_f_fg;
+}
+
+#workspaces button:not(.focused):hover {
+    background-color: @wspace_btn_hvr_bg;
+    color: @wspace_btn_hvr_fg;
+}
+
+#workspaces button.urgent {
+    background-color: #ed8796;
+}
+
+/* ======================= Tray ======================= */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #ee99a0;
+}
+
+/* ======================= Hover эффекты ======================= */
+#pulseaudio:hover,
+#cpu:hover,
+#battery:hover,
+#network:hover,
+#clock:hover {
+    background-color: @module_hvr;
+}
+
+/* ======================= Battery States ======================= */
+#battery.charging,
+#battery.plugged {
+    color: #cad3f5;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* ======================= Animations ======================= */
+@keyframes blink {
+    to {
+        color: #000000;
+    }
+}
+
+label:focus {
+    background-color: #000000;
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "color": {
+      "1": "#E6A3B2",
+      "2": "#C58A95"
+    },
+    "type": "small",
+    "padding": {
+      "top": 1,
+      "left": 3
+    }
+  },
+  "display": {
+    "separator": " ",
+    "constants": [
+      "────────────────────────────────────────"
+    ]
+  },
+  "key": {
+    "width": 12,
+    "type": "string"
+  },
+  "percent": {
+    "type": 9,
+    "color": {
+      "green": "#B7C9A3",
+      "yellow": "#E8C4A8",
+      "red": "#C86A7A"
+    }
+  },
+  "modules": [
+    {
+      "type": "custom",
+      "format": "{$1}",
+      "outputColor": "#EFD6DB"
+    },
+    {
+      "type": "kernel",
+      "key": "  Kernel ",
+      "keyColor": "#C58A95"
+    },
+    {
+      "type": "wm",
+      "key": "  WM/DE  ",
+      "keyColor": "#B18BA5"
+    },
+    {
+      "type": "shell",
+      "key": "  Shell  ",
+      "keyColor": "#D9899A"
+    },
+    {
+      "type": "terminal",
+      "key": "  Term   ",
+      "keyColor": "#E8C4A8"
+    },
+    {
+      "type": "uptime",
+      "key": "󰅐  Uptime ",
+      "keyColor": "#C58A95"
+    },
+    {
+      "type": "memory",
+      "key": "  Memory ",
+      "keyColor": "#C58A95"
+    },
+    {
+      "type": "disk",
+      "key": "󰉉  Disk   ",
+      "keyColor": "#8A5E63",
+      "format": "{size-used} / {size-total} ({size-percentage})"
+    },
+    {
+      "type": "battery",
+      "key": "  Battery",
+      "keyColor": "#E8C4A8",
+      "format": "{status} ({capacity})"
+    },
+    {
+      "type": "custom",
+      "format": "{$1}",
+      "outputColor": "#EFD6DB"
+    }
+  ]
+}
+

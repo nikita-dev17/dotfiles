@@ -1,0 +1,177 @@
+{
+  "position": "top",
+  "margin-top": 2,
+  "margin-left": 10,
+  "margin-right": 10,
+  "height": 28,
+
+  "modules-left": [
+    "sway/workspaces",
+    "sway/window"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "sway/language",
+    "pulseaudio",
+    "battery",
+    "network", 
+    "temperature",
+    "custom/disk",
+    "bluetooth",
+    "tray",
+    "custom/swaync"
+  ],
+
+  "sway/window": {
+    "format": "{}",
+    "max-length": 60,
+    "rewrite": {
+      "Mozilla Firefox": "Firefox",
+      "Visual Studio Code": "VS Code",
+      "": "Sway"
+    },
+    "separate-outputs": true
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 60,
+    "return-type": "text"
+  },
+
+  "custom/music": {
+    "exec": "~/.config/waybar/scripts/music.sh",
+    "max-length": 40,
+    "interval": 1,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  "sway/language": {
+    "format": "{short}",
+    "tooltip": false
+  },
+
+  "sway/workspaces": {
+    "format": "{icon}",
+    "custom/music": {
+      "format": "󰝚 {}",
+      "exec": "playerctl metadata --format '{{title}}'",
+      "interval": 1,
+      "on-click": "playerctl play-pause"
+    },"on-click": "activate",
+    "format-icons": {
+      "active": " "
+    },
+    "sort-by-number": true
+  },
+
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+
+  "cpu": {
+    "format": "{icon}   {usage}%",
+    "tooltip": false,
+    "format-icons": ""
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+
+  "network":{
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": " ⚠ ",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "tray": {
+    "icon-size": 22,
+    "spacing": 10
+  }, 
+
+  "custom/disk": {
+    "exec": "df -h /home | awk 'NR==2{print $3\"/\"$2}'",
+    "interval": 60,
+    "tooltip": false,
+    "format": "{}"
+  },
+
+  "custom/swaync": {
+    "exec": "swaync-client -c",
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -d",
+    "interval": 1,
+    "tooltip": false
+  },
+  
+  "bluetooth": {
+    "format": "󰂲",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "interval": 2,
+    "format-connected": "󰂰",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "blueman-manager"
+  }
+
+}

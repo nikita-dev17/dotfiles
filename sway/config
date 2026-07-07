@@ -1,0 +1,169 @@
+#Autorun
+exec /usr/lib/xdg-desktop-portal-wlr
+#exec swaync
+exec blueman-applet # Only x11 platform is supported
+exec nm-applet
+exec waypaper --restore
+exec awww-daemon
+exec waybar -c ~/.config/waybar/sway/config.json -s ~/.config/waybar/sway/style.css
+
+#Буфер обмена
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
+# Переменные окружения
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
+exec swayidle -w \
+    timeout 1200 'swaymsg "output eDP-1 dpms off"' \
+    resume 'swaymsg "output eDP-1 dpms on"' \
+    lock 'swaylock -f' \
+    before-sleep 'swaylock -f'
+
+# Внешний вид
+font pango: Noto Sans Regular 12
+default_border pixel 1
+default_floating_border none
+gaps inner 10
+smart_gaps off
+
+# Переменные
+set $mod Mod4
+set $term kitty
+set $menu rofi -show drun
+set $browser firefox
+
+# Окна
+for_window [app_id="imv"] floating enable
+for_window [app_id="eog"] floating enable
+for_window [app_id="file-roller"] floating enable
+for_window [title="file-roller"] floating enable
+for_window [title="Свойства"] floating enable
+
+for_window [tiling] border pixel 2
+for_window [app_id="pavucontrol"] floating enable, resize set width 700 px height 900 px, move position 1200 px 0 px
+for_window [app_id="nm-connection-editor"] floating enable, resize set width 700 px height 500 px, move position 1200 px 0 px
+for_window [app_id="blueman-manager"] floating enable, resize set width 700 px height 500 px, move position 1200 px 0 px
+
+
+# Цвета окон
+# Активное окно — тёмный тёплый акцент
+client.focused    #E38CA3 #2B1E24 #F6E9EE #D96C8C #E38CA3
+# Неактивное, но открытое
+client.focused_inactive    #B48A99 #24181D #E2CDD5 #B48A99 #B48A99
+# Обычные неактивные
+client.unfocused    #7E5E69 #1C1418 #BFA7B0 #7E5E69 #7E5E69
+# Срочные
+client.urgent    #D96C8C #D96C8C #1C1418 #D96C8C #D96C8C
+
+
+# Мультимедиа
+bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+input "1267:12721:ELAN050A:00_04F3:31B1_Touchpad" {
+    dwt disable
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+# Тачпад
+input * {
+    xkb_layout us,ru,ua
+    xkb_options grp:shifts_toggle,grp:lalt_lshift_toggle
+    repeat_delay 500
+    repeat_rate 50
+}
+
+# gesture
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
+# Монитор
+output * {
+    adaptive_sync on
+    subpixel rgb
+    allow_tearing enable
+}
+
+# Основные бинды
+bindsym --to-code {
+  $mod+e floating toggle
+  $mod+c exec $term
+  $mod+n exec nautilus -w
+  $mod+q kill
+  $mod+f fullscreen toggle
+  $mod+t exec Telegram
+  $mod+v exec cliphist list | rofi -dmenu -dpi 1 -p "" | cliphist decode | wl-copy
+  Print exec slurp | grim -g - - | wl-copy && wl-paste > /home/nikita/Screenshots/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+  $mod+r exec $menu
+  $mod+b exec $browser
+  $mod+g exec $browser --new-window 'https://chatgpt.com'
+
+  $mod+Shift+o exec 'pkill waybar && waybar -c ~/.config/waybar/sway/config.json -s ~/.config/waybar/sway/style.css & disown'
+  $mod+Shift+c exec swaymsg reload
+  $mod+Shift+e exec wlogout
+  $mod+l exec swaylock -c ~/.config/swaylock/config
+
+  $mod+a focus left
+  $mod+d focus right
+  $mod+w focus up
+  $mod+s move down
+  $mod+left focus left
+  $mod+right focus right
+  $mod+up focus up
+  $mod+down move down
+
+  $mod+Shift+a move left
+  $mod+Shift+d move right
+  $mod+Shift+w move up
+  $mod+Shift+s move down
+  $mod+Shift+left move left
+  $mod+Shift+right move right
+  $mod+Shift+up move up
+  $mod+Shift+down move down
+  
+  $mod+Ctrl+a resize shrink width 100px
+  $mod+Ctrl+d resize grow width 100px
+  $mod+Ctrl+w resize shrink height 100px
+  $mod+Ctrl+s resize grow height 100px
+}
+
+
+# Навигация
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
+bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+
+# Мышь
+floating_modifier $mod normal
+
+# Внешние конфиги
+include /etc/sway/config.d/*
+include ~/.config/swaybar/config
+
